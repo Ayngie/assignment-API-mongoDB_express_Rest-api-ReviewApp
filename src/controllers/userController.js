@@ -39,7 +39,7 @@ exports.createNewUser = async (req, res, next) => {
 };
 
 // PUT /api/v1/users/:userId - Update user (by id)
-exports.updateUser = async (req, res, next) => {
+exports.updateUserById = async (req, res, next) => {
   try {
     return res.send("Update user"); //scaffold return m meddelande
   } catch (error) {
@@ -51,7 +51,7 @@ exports.updateUser = async (req, res, next) => {
 };
 
 // DELETE /api/v1/users/:userId - Delete user (by id)
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUserById = async (req, res, next) => {
   try {
     return res.send("Delete user"); //scaffold return m meddelande
   } catch (error) {
