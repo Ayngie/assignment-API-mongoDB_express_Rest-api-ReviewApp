@@ -14,7 +14,9 @@ const RestaurantSchema  = new mongoose.Schema ( {
     address: {
         type: String,
         require: true,
-    },
+    }
+
+    
 },
 {
     timestamps: true,
