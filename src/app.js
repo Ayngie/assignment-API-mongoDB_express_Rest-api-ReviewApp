@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 async function run() {
   app.listen(5000, () => {
-    console.log("Server running");
+    console.log(`Server running on http://localhost:${port}`);
   });
 }
 run();
