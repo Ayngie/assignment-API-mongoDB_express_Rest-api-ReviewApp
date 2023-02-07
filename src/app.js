@@ -9,7 +9,7 @@ app.use("/helloWorld", (request, response) => {
   return response.send("Hello World!");
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 async function run() {
   app.listen(5000, () => {
