@@ -2,6 +2,9 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const mongoose = require("mongoose");
+const restaurantRoutes = require("./routes/restaurantRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
