@@ -39,7 +39,7 @@ exports.createNewReview = async (req, res, next) => {
 };
 
 // PUT /api/v1/reviews/:reviewId - Update review (by id)
-exports.updateReview = async (req, res, next) => {
+exports.updateReviewById = async (req, res, next) => {
   try {
     return res.send("Update review"); //scaffold return m meddelande
   } catch (error) {
@@ -51,7 +51,7 @@ exports.updateReview = async (req, res, next) => {
 };
 
 // DELETE /api/v1/reviews/:reviewId - Delete review (by id)
-exports.deleteReview = async (req, res, next) => {
+exports.deleteReviewById = async (req, res, next) => {
   try {
     return res.send("Delete review"); //scaffold return m meddelande
   } catch (error) {
