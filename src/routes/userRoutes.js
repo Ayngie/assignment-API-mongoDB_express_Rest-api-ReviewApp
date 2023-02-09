@@ -1,4 +1,8 @@
 const express = require("express");
+const {
+  createNewReview,
+  getAllReviews,
+} = require("../controllers/reviewController");
 const router = express.Router();
 const {
   getAllUsers,
@@ -23,5 +27,8 @@ router.put("/:todoId", updateUserById);
 
 // DELETE /api/v1/users/:userId - Delete user (by id)
 router.delete("/:todoId", deleteUserById);
+
+//Nästlade routes:
+router.get("/users/:userId/reviews/", getAllReviews);
 
 module.exports = router;

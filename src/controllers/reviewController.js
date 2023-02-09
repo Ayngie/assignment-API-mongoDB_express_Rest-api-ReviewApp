@@ -1,6 +1,3 @@
-
-
-
 //CRUD Reviews:
 
 const Review = require("../models/Review");
@@ -17,22 +14,20 @@ exports.getAllReviews = async (req, res, next) => {
     });
   } */
 
-  const limit = Number(req.query?.limit || 10)
-  const offset = Number(req.query.offset || 0 )
-  const review = await Review.find().limit(limit).skip(offset)
-const totalReviewsInDatabase = await Review.countDocuments()
+  const limit = Number(req.query?.limit || 10);
+  const offset = Number(req.query.offset || 0);
+  const review = await Review.find().limit(limit).skip(offset);
+  const totalReviewsInDatabase = await Review.countDocuments();
 
-return res.json({
-  data: Review,
-  meta: {
-    total: totalReviewsInDatabase,
-    limit: limit,
-    offset: offset,
-    count: review.length
-  }
-  
-})
-
+  return res.json({
+    data: Review,
+    meta: {
+      total: totalReviewsInDatabase,
+      limit: limit,
+      offset: offset,
+      count: review.length,
+    },
+  });
 };
 
 // GET /api/v1/reviews/:reviewId - Get review by id
@@ -45,12 +40,12 @@ exports.getReviewById = async (req, res, next) => {
       message: error.message,
     });
   }*/
-const reviewId = req.params.reviewId
-const review = await reviewId.findById(reviewId)
+  const reviewId = req.params.reviewId;
+  const review = await reviewId.findById(reviewId);
 
-if (!review) throw new NotFoundError("Review does not exist")
+  if (!review) throw new NotFoundError("Review does not exist");
 
-return res.json(review)
+  return res.json(review);
 };
 
 // POST /api/v1/reviews - Create new review
@@ -63,29 +58,36 @@ exports.createNewReview = async (req, res, next) => {
       message: error.message,
     });
   }*/
- const text = req.body.text
- const rating = req.body.rating
- const restaurantId = req.body.restaurantId
- const userId = req.body.userId
+  const text = req.body.text;
+  const rating = req.body.rating;
+  const restaurantId = req.params.restaurantId || req.body.restaurantId;
+  const userId = req.body.userId;
 
- if(!text) throw new BadRequestError("You must provide a comment")
- if(!rating) throw new BadRequestError("You must provide a rating")
+  let restarantId = null;
 
-const newReview = await Review.create ({
-  text: text,
-  rating: rating,
-  restaurantId: restaurantId,
-  userId: userId
-})
+  if (req.params.restaurantId) {
+    restarantId = req.params.restaurantId;
+  } else if (req.body.restaurantId) {
+    restarantId = req.body.restaurantId;
+  }
 
-return res 
-.setHeader(
-  'Location',
-  `http://localhost:${process.env.PORT}/api/v1/reviews/${newReview._id}`
-)
-.status(201)
-.json(newReview)
+  if (!text) throw new BadRequestError("You must provide a comment");
+  if (!rating) throw new BadRequestError("You must provide a rating");
 
+  const newReview = await Review.create({
+    text: text,
+    rating: rating,
+    restaurantId: restaurantId,
+    userId: userId,
+  });
+
+  return res
+    .setHeader(
+      "Location",
+      `http://localhost:${process.env.PORT}/api/v1/reviews/${newReview._id}`
+    )
+    .status(201)
+    .json(newReview);
 };
 
 // PUT /api/v1/reviews/:reviewId - Update review (by id)
@@ -99,19 +101,22 @@ exports.updateReviewById = async (req, res, next) => {
     });
   }*/
 
-  const reviewId = req.params.reviewId
-  const { text, rating } = req.body
-  if (!text && !rating) throw new BadRequestError('You must provide a comment and a rating to update.')
+  const reviewId = req.params.reviewId;
+  const { text, rating } = req.body;
+  if (!text && !rating)
+    throw new BadRequestError(
+      "You must provide a comment and a rating to update."
+    );
 
-  const reviewToUpdate = await Review.findById(reviewId)
-  if (!reviewToUpdate) throw new NotFoundError('This review does not exist')
+  const reviewToUpdate = await Review.findById(reviewId);
+  if (!reviewToUpdate) throw new NotFoundError("This review does not exist");
 
-  if (text) reviewToUpdate.text = text
-	if (rating) reviewToUpdate.rating = rating
-	const updatedReview = await reviewToUpdate.save()
+  if (text) reviewToUpdate.text = text;
+  if (rating) reviewToUpdate.rating = rating;
+  const updatedReview = await reviewToUpdate.save();
 
-	// Craft response (return updated project)
-	return res.json(updatedReview)
+  // Craft response (return updated project)
+  return res.json(updatedReview);
 };
 
 // DELETE /api/v1/reviews/:reviewId - Delete review (by id)
@@ -125,9 +130,9 @@ exports.deleteReviewById = async (req, res, next) => {
     });
   }*/
 
-  const reviewId = req.params.reviewId
-  const reviewToDelete = await Review.findById(reviewId)
-  if (!reviewToDelete) throw new NotFoundError('This review does not exist')
-  await reviewToDelete.delete()
-  return res.sendStatus(204)
+  const reviewId = req.params.reviewId;
+  const reviewToDelete = await Review.findById(reviewId);
+  if (!reviewToDelete) throw new NotFoundError("This review does not exist");
+  await reviewToDelete.delete();
+  return res.sendStatus(204);
 };
