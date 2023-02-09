@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Review = require("../models/Review");
 
 const RestaurantSchema = new mongoose.Schema(
   {
