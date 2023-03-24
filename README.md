@@ -41,5 +41,6 @@ Install dependencies
 Start the server
 
 ```terminal
+  npm run seedDb
   npm run dev
 ```
