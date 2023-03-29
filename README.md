@@ -7,7 +7,7 @@ I built this review-app together with Nina Khodnia and Robin Sahin.
 Course: API development, Medieinstitutet Sthlm.
 
 ## Screenshot of project
-![MobgoDb API](https://angelicareutersward.se/assets/mongodbReviewApp/mongodbReviewApp.png)
+![MobgoDb API](https://angelicareutersward.se/Images/mongodbReviewApp/mongodbReviewApp.png)
 
 ## Techniques used
 ![VSCode badge](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white/to/img.png)
